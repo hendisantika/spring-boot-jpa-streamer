@@ -78,4 +78,14 @@ class UserRepositoryTest {
 
         Assertions.assertEquals(2, users.size());
     }
+
+    @Test
+    void testGetAllUsers_Page_Size_2() {
+        List<User> users = jpaStreamer.stream(User.class)
+                .skip(2)
+                .limit(2)
+                .toList();
+
+        Assertions.assertEquals(2, users.size());
+    }
 }
