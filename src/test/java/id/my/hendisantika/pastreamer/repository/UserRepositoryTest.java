@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,5 +50,15 @@ class UserRepositoryTest {
                 .toList();
 
         Assertions.assertEquals(2, inactiveUsers.size());
+    }
+
+    @Test
+    void testGetAllUsers_With_Dob_Null() {
+        List<User> usersWithoutDateOfBirth = jpaStreamer.stream(User.class)
+                .filter(User$.dateOfBirth.isNull())
+                .collect(Collectors.toList());
+
+        Assertions.assertEquals(0, usersWithoutDateOfBirth.size());
+
     }
 }
