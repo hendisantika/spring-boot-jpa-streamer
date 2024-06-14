@@ -59,6 +59,14 @@ class UserRepositoryTest {
                 .collect(Collectors.toList());
 
         Assertions.assertEquals(0, usersWithoutDateOfBirth.size());
+    }
 
+    @Test
+    void testGetAllUsers_With_Dob_NotNull() {
+        List<User> usersWithDateOfBirth = jpaStreamer.stream(User.class)
+                .filter(User$.dateOfBirth.isNotNull())
+                .collect(Collectors.toList());
+
+        Assertions.assertEquals(5, usersWithDateOfBirth.size());
     }
 }
