@@ -2,6 +2,7 @@ package id.my.hendisantika.pastreamer.repository;
 
 import com.speedment.jpastreamer.application.JPAStreamer;
 import id.my.hendisantika.pastreamer.entity.User;
+import id.my.hendisantika.pastreamer.entity.User$;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -56,7 +56,7 @@ class UserRepositoryTest {
     void testGetAllUsers_With_Dob_Null() {
         List<User> usersWithoutDateOfBirth = jpaStreamer.stream(User.class)
                 .filter(User$.dateOfBirth.isNull())
-                .collect(Collectors.toList());
+                .toList();
 
         Assertions.assertEquals(0, usersWithoutDateOfBirth.size());
     }
@@ -65,7 +65,7 @@ class UserRepositoryTest {
     void testGetAllUsers_With_Dob_NotNull() {
         List<User> usersWithDateOfBirth = jpaStreamer.stream(User.class)
                 .filter(User$.dateOfBirth.isNotNull())
-                .collect(Collectors.toList());
+                .toList();
 
         Assertions.assertEquals(5, usersWithDateOfBirth.size());
     }
@@ -74,7 +74,7 @@ class UserRepositoryTest {
     void testGetAllUsers_Born_After_2000() {
         List<User> users = jpaStreamer.stream(User.class)
                 .filter(User$.dateOfBirth.greaterThan(LocalDate.of(2000, 1, 1)))
-                .collect(Collectors.toList());
+                .toList();
 
         Assertions.assertEquals(2, users.size());
     }
