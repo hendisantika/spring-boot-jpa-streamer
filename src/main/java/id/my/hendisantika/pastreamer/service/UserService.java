@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,5 +37,9 @@ public class UserService {
 
     public Optional<User> getById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public List<User> findAllUsers() {
+        return jpaStreamer.stream(User.class).collect(Collectors.toList());
     }
 }
