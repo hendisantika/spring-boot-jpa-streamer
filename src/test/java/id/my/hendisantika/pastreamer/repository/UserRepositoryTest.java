@@ -69,4 +69,13 @@ class UserRepositoryTest {
 
         Assertions.assertEquals(5, usersWithDateOfBirth.size());
     }
+
+    @Test
+    void testGetAllUsers_Born_After_2000() {
+        List<User> users = jpaStreamer.stream(User.class)
+                .filter(User$.dateOfBirth.greaterThan(LocalDate.of(2000, 1, 1)))
+                .collect(Collectors.toList());
+
+        Assertions.assertEquals(2, users.size());
+    }
 }
