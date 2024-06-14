@@ -28,4 +28,8 @@ public class UserService {
     public Iterable<User> saveAll(List<User> users) {
         return userRepository.saveAll(users);
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }
