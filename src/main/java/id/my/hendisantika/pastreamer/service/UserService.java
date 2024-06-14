@@ -42,4 +42,10 @@ public class UserService {
     public List<User> findAllUsers() {
         return jpaStreamer.stream(User.class).collect(Collectors.toList());
     }
+
+    public List<User> findAllUsersWithStatus(Boolean status) {
+        return jpaStreamer.stream(User.class)
+                .filter(u -> u.getActive() == status)
+                .collect(Collectors.toList());
+    }
 }
