@@ -4,11 +4,13 @@ import com.speedment.jpastreamer.application.JPAStreamer;
 import id.my.hendisantika.pastreamer.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,5 +40,14 @@ class UserRepositoryTest {
         userRepository.save(new User(null, "username-3", LocalDate.of(2002, 01, 01), true));
         userRepository.save(new User(null, "username-4", LocalDate.of(1984, 01, 01), false));
         userRepository.save(new User(null, "username-5", LocalDate.of(1985, 01, 01), false));
+    }
+
+    @Test
+    void testGetAllUsers_With_Status_Inactive() {
+        List<User> inactiveUsers = jpaStreamer.stream(User.class)
+                .filter(u -> !u.getActive())
+                .toList();
+
+        Assertions.assertEquals(2, inactiveUsers.size());
     }
 }
